@@ -1,0 +1,75 @@
+<html><head>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style type="text/css">
+.wrp{
+  margin:20px;
+  padding:10px
+}
+body{
+  background-color: transparent;
+}
+</style>
+<title>LS Test</title>
+</head>
+    <body>
+          <div class="wrp">
+            <form lpformnum="1">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="auto-save form-control" id="name" value="">
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="auto-save form-control" id="email">
+              </div>
+              <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea rows="3" class=" auto-save form-control" id="message"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="saveAction()">Save In LS</button>
+              <button type="button" class="btn btn-primary" onclick="getAction()">Get from LS</button>
+              <button type="reset" class="btn btn-danger">Clear Form</button>
+              <button type="button" class="btn btn-danger" onclick="eraseLS()">Destroy Local Storage</button>
+            </form>
+        </div>
+        <script type="text/javascript">//<![CDATA[
+        if (typeof(Storage) !== "undefined") {
+            console.log('LS supported')
+        } else {
+            alert('Oppps....LS Not supported')
+        }
+        function save(keyName, value) {
+            localStorage.setItem(keyName, value);
+        }
+        function get(keyName) {
+                    return localStorage.getItem(keyName)
+        }
+
+        function saveAction() {
+            var name = document.getElementById("name").value
+            var email = document.getElementById("email").value
+            var message = document.getElementById("message").value
+            
+            save('name', name)
+            save('email', email)
+            save('message', message)
+            save('allData', JSON.stringify({'name': name, 'email': email, 'message': message})) // save at once
+            
+        }
+        function getAction(){
+            var name = get('name')
+            var email = get('email')
+            var message = get('message')
+            document.getElementById("name").value = name
+            document.getElementById("email").value = email
+            document.getElementById("message").value = message
+        }
+        function eraseLS(){
+            var conf = confirm('are u sure')
+            if(conf === true) {
+                localStorage.clear();
+            }
+        }
+        </script>
+    </body>
+</html>
